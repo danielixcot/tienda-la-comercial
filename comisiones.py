@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# programa de comisiones
-# hecho por kevin, no tocar, ya funciona
+"""Calcula e imprime las comisiones mensuales de los vendedores."""
 
 ANCHO_REPORTE = 44
 META_COMISION_ALTA = 30000
@@ -11,7 +10,6 @@ SIN_BONO = 0
 TASA_COMISION_BASE = 0.05
 DECIMALES_MONEDA = 2
 
-# lista de vendedores
 vendedores = [
     ("María López", 45000.00),
     ("Carlos Pérez", 28500.00),
@@ -22,14 +20,13 @@ vendedores = [
 
 
 def calcular_comision(ventas_mensuales):
-    # si vendio mas de 30000
+    # La meta debe superarse; igualarla mantiene la tasa base.
     if ventas_mensuales > META_COMISION_ALTA:
-        # calcula la comision del 8%
         tasa_comision = TASA_COMISION_ALTA
     else:
-        # calcula la comision del 5%
         tasa_comision = TASA_COMISION_BASE
 
+    # Se conserva el redondeo intermedio para no alterar la regla actual.
     return round(
         ventas_mensuales * tasa_comision,
         DECIMALES_MONEDA
@@ -37,7 +34,7 @@ def calcular_comision(ventas_mensuales):
 
 
 def calcular_bono(ventas_mensuales):
-    # el bono es de 300
+    # El bono se entrega únicamente cuando las ventas superan la meta.
     if ventas_mensuales > META_BONO:
         return MONTO_BONO
 
@@ -58,7 +55,6 @@ def calcular_pagos():
     pagos_vendedores = []
     total_pagar = 0
 
-    # recorre la lista
     for nombre_vendedor, ventas_mensuales in vendedores:
         total_vendedor = calcular_pago_vendedor(ventas_mensuales)
 
@@ -83,8 +79,6 @@ def imprimir_reporte(pagos_vendedores, total_pagar):
             + str(total_vendedor)
         )
 
-    # ta = tp * 1.12
-    # print("con iva", ta)
     print("-" * ANCHO_REPORTE)
     print(
         "Total a pagar: Q "
